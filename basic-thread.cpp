@@ -22,17 +22,33 @@ ull evenSum = 0;
 //   }
 // }
 
-auto findOdd = [](ull start, ull end)
+// auto findOdd = [](ull start, ull end)
+// {
+//   for (ull i = start; i < end; i++)
+//   {
+//     if ((i & 1) == 1)
+//     {
+//       oddSum += i;
+//       cout << "ODD" << endl;
+//     }
+//   }
+// };
+
+class findOdd
 {
-  for (ull i = start; i < end; i++)
+public:
+  void operator()(ull start, ull end)
   {
-    if ((i & 1) == 1)
+    for (ull i = start; i < end; i++)
     {
-      oddSum += i;
-      cout << "ODD" << endl;
+      if ((i & 1) == 1)
+      {
+        oddSum += i;
+        cout << "ODD" << endl;
+      }
     }
   }
-};
+}
 
 // void findEven(ull start, ull end)
 // {
