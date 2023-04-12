@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
   findEven fe;
 
-  thread t1(&findEven::run, &fe start, end);
+  thread t1(&findEven::run, &fe, start, end);
   thread t2(findOdd(), start, end);
 
   t1.join();
