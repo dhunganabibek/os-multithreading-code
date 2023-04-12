@@ -10,7 +10,19 @@ typedef unsigned long long ull;
 ull oddSum = 0;
 ull evenSum = 0;
 
-void findOdd(ull start, ull end)
+// void findOdd(ull start, ull end)
+// {
+//   for (ull i = start; i < end; i++)
+//   {
+//     if ((i & 1) == 1)
+//     {
+//       oddSum += i;
+//       cout << "ODD" << endl;
+//     }
+//   }
+// }
+
+auto findOdd = [](ull start, ull end)
 {
   for (ull i = start; i < end; i++)
   {
@@ -20,9 +32,21 @@ void findOdd(ull start, ull end)
       cout << "ODD" << endl;
     }
   }
-}
+};
 
-void findEven(ull start, ull end)
+// void findEven(ull start, ull end)
+// {
+//   for (ull i = 0; i < end; i++)
+//   {
+//     if ((i & 1) == 0)
+//     {
+//       oddSum += i;
+//       cout << "EVEN" << endl;
+//     }
+//   }
+// }
+
+auto findEven = [](ull start, ull end)
 {
   for (ull i = 0; i < end; i++)
   {
@@ -32,7 +56,7 @@ void findEven(ull start, ull end)
       cout << "EVEN" << endl;
     }
   }
-}
+};
 
 int main(int argc, char *argv[])
 {
@@ -40,14 +64,14 @@ int main(int argc, char *argv[])
   ull start = 0;
   ull end = 100000;
 
-  // thread t1(findEven, start, end);
-  // thread t2(findOdd, start, end);
+  thread t1(findEven, start, end);
+  thread t2(findOdd, start, end);
 
-  // t1.join();
-  // t2.join();
+  t1.join();
+  t2.join();
 
-  findOdd(start, end);
-  findEven(start, end);
+  // findOdd(start, end);
+  // findEven(start, end);
 
   cout << "odd sum:" << oddSum << endl;
   cout << "even sum:" << evenSum << endl;
