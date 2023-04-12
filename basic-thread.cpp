@@ -62,14 +62,30 @@ public:
 //   }
 // }
 
-auto findEven = [](ull start, ull end)
+// auto findEven = [](ull start, ull end)
+// {
+//   for (ull i = 0; i < end; i++)
+//   {
+//     if ((i & 1) == 0)
+//     {
+//       oddSum += i;
+//       cout << "EVEN" << endl;
+//     }
+//   }
+// };
+
+class findEven
 {
-  for (ull i = 0; i < end; i++)
+public:
+  void run(ull start, ull end)
   {
-    if ((i & 1) == 0)
+    for (ull i = 0; i < end; i++)
     {
-      oddSum += i;
-      cout << "EVEN" << endl;
+      if ((i & 1) == 0)
+      {
+        oddSum += i;
+        cout << "EVEN" << endl;
+      }
     }
   }
 };
@@ -80,7 +96,9 @@ int main(int argc, char *argv[])
   ull start = 0;
   ull end = 100000;
 
-  thread t1(findEven, start, end);
+  findEven fe;
+
+  thread t1(&findEven::run, &fe start, end);
   thread t2(findOdd(), start, end);
 
   t1.join();
