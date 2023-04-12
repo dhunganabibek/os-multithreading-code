@@ -48,7 +48,7 @@ public:
       }
     }
   }
-}
+};
 
 // void findEven(ull start, ull end)
 // {
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
   ull end = 100000;
 
   thread t1(findEven, start, end);
-  thread t2(findOdd, start, end);
+  thread t2(findOdd(), start, end);
 
   t1.join();
   t2.join();
