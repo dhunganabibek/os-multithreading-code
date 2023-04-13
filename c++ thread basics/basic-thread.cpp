@@ -1,6 +1,7 @@
 // find the addition of all odd number from 1 to 10000000 and even number from 1 to 10000000.
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 using namespace std;
 using namespace std::chrono;
@@ -10,17 +11,18 @@ typedef unsigned long long ull;
 ull oddSum = 0;
 ull evenSum = 0;
 
-// void findOdd(ull start, ull end)
-// {
-//   for (ull i = start; i < end; i++)
-//   {
-//     if ((i & 1) == 1)
-//     {
-//       oddSum += i;
-//       cout << "ODD" << endl;
-//     }
-//   }
-// }
+void findOdd(ull start, ull end)
+{
+  for (ull i = start; i < end; i++)
+  {
+    if ((i & 1) == 1)
+    {
+      oddSum += i;
+      cout << "odd" << endl;
+      this_thread::sleep_for(chrono::seconds(1));
+    }
+  }
+}
 
 // auto findOdd = [](ull start, ull end)
 // {
@@ -34,21 +36,20 @@ ull evenSum = 0;
 //   }
 // };
 
-class findOdd
-{
-public:
-  void operator()(ull start, ull end)
-  {
-    for (ull i = start; i < end; i++)
-    {
-      if ((i & 1) == 1)
-      {
-        oddSum += i;
-        cout << "ODD" << endl;
-      }
-    }
-  }
-};
+// class findOdd
+// {
+// public:
+//   void operator()(ull start, ull end)
+//   {
+//     for (ull i = start; i < end; i++)
+//     {
+//       if ((i & 1) == 1)
+//       {
+//         oddSum += i;
+//       }
+//     }
+//   }
+// };
 
 // void findEven(ull start, ull end)
 // {
@@ -62,44 +63,43 @@ public:
 //   }
 // }
 
-// auto findEven = [](ull start, ull end)
-// {
-//   for (ull i = 0; i < end; i++)
-//   {
-//     if ((i & 1) == 0)
-//     {
-//       oddSum += i;
-//       cout << "EVEN" << endl;
-//     }
-//   }
-// };
-
-class findEven
+auto findEven = [](ull start, ull end)
 {
-public:
-  void run(ull start, ull end)
+  for (ull i = 0; i < end; i++)
   {
-    for (ull i = 0; i < end; i++)
+    if ((i & 1) == 0)
     {
-      if ((i & 1) == 0)
-      {
-        oddSum += i;
-        cout << "EVEN" << endl;
-      }
+      evenSum += i;
+      cout << "Even" << endl;
+      this_thread::sleep_for(chrono::seconds(1));
     }
   }
 };
+
+// class findEven
+// {
+// public:
+//   void run(ull start, ull end)
+//   {
+//     for (ull i = 0; i < end; i++)
+//     {
+//       if ((i & 1) == 0)
+//       {
+//         oddSum += i;
+//         cout << "EVEN" << endl;
+//       }
+//     }
+//   }
+// };
 
 int main(int argc, char *argv[])
 {
   auto startTime = steady_clock::now();
   ull start = 0;
-  ull end = 100000;
+  ull end = 4;
 
-  findEven fe;
-
-  thread t1(&findEven::run, &fe, start, end);
-  thread t2(findOdd(), start, end);
+  thread t1(findEven, start, end);
+  thread t2(findOdd, start, end);
 
   t1.join();
   t2.join();
